@@ -1,0 +1,4 @@
+﻿  Class.cpp
+C:\Users\Dylan\source\repos\Class\Class.cpp(9,15): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Dylan\source\repos\Class\Class.cpp(56,10): warning C4101: 'maxNotes': variable local sin referencia
+  Class.vcxproj -> C:\Users\Dylan\source\repos\Class\x64\Debug\Class.exe
