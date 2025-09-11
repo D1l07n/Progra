@@ -42,8 +42,6 @@ int main()
             
         }
     }
-    
-
     for (int f = 0; f < students; f++) {
        
         for (int c = 0; c < grades; c++) {
