@@ -7,7 +7,7 @@ int grades;
 int nMin = 1000, nMax = 8999;
 
 
-void ingresoEstudiantes(int** matriz) {
+int** ingresoEstudiantes() {
     while (students < 10 || students > 30) {
         cout << "Cuantos estudiantes desea ingresar (minimo 10 y maximo 30): ";
         cin >> students;
@@ -22,10 +22,11 @@ void ingresoEstudiantes(int** matriz) {
     grades++;
 
    
-    matriz = new int* [students];
+   int** matriz = new int* [students];
     for (int i = 0; i < students; i++) {
         matriz[i] = new int[grades];
     }
+    return matriz;
 }
 void studentsInformation(int** matriz) {
     for (int f = 0; f < students; f++) {
@@ -42,7 +43,7 @@ void studentsInformation(int** matriz) {
     cout << "\nMatriz de estudiantes (Carne + Notas):\n";
     for (int f = 0; f < students; f++) {
         for (int c = 0; c < grades; c++) {
-            cout << matriz[f][c] << "\n";
+            cout << matriz[f][c]<<"\t";
         }
         cout << "\n";
     }
@@ -50,7 +51,7 @@ void studentsInformation(int** matriz) {
 }
 
 
-int* calcularPromedios(int** matriz) {
+int* Averages(int** matriz) {
     int* promedios = new int[students];
     for (int f = 0; f < students; f++) {
         int suma = 0;
@@ -63,52 +64,48 @@ int* calcularPromedios(int** matriz) {
 }
 
 
-void top5(int* promedios, int** matriz) {
+void mAverages(int* promedios, int** matriz) {
     cout << "Los 5 promedios mas altos son:\n";
+    
+    for (int i = 0; i < students - 1; i++) {
+        for (int j = 0; j < students - i - 1; j++) {
+            if (promedios[j] < promedios[j + 1]) {
+                int temp = promedios[j];
+                promedios[j] = promedios[j + 1];
+                promedios[j + 1] = temp;
 
-    // copia de promedios para manipular sin dañar el original
-    int* copia = new int[students];
-    for (int i = 0; i < students; i++) {
-        copia[i] = promedios[i];
-    }
-
-    for (int k = 0; k < 5; k++) {
-        int maxProm = -1;
-        int idx = -1;
-        for (int i = 0; i < students; i++) {
-            if (copia[i] > maxProm) {
-                maxProm = copia[i];
-                idx = i;
+                int tempC = matriz[j][0];
+                matriz[j][0] = matriz[j + 1][0];
+                matriz[j + 1][0] = tempC;
             }
         }
-        if (idx != -1) {
-            cout << "Estudiante con carne " << matriz[idx][0]
-                << " tiene promedio " << promedios[idx] << endl;
-            copia[idx] = -1; // marcar como ya usado
-        }
     }
+    for (int i = 0; i < 5; i++) {
+        cout << "Estudiante con carne " << matriz[i][0];
+        cout << " Promedio " << promedios[i] << "\n";
 
-    delete[] copia;
+
+
+    }
 }
 
 int main() {
     srand(time(0));
 
-    int** matriz = nullptr;
+    int** matriz = ingresoEstudiantes();
 
-    ingresoEstudiantes(matriz);
+  
     studentsInformation(matriz);
 
-    int* promedios = calcularPromedios(matriz);
+    int* promedios = Averages(matriz);
 
     cout << "Promedios por estudiante:\n";
     for (int i = 0; i < students; i++) {
-        cout << "Estudiante " << i << " (Carne " << matriz[i][0]
-            << "): " << promedios[i] << endl;
+        cout << "Estudiante " << i << " Carne " << matriz[i][0] << ": " << promedios[i] << endl;
     }
     cout << endl;
 
-    top5(promedios, matriz);
+    mAverages(promedios, matriz);
 
    
     delete[] promedios;
