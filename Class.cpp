@@ -7,7 +7,7 @@ int grades;
 int nMin = 1000, nMax = 8999;
 
 
-int** ingresoEstudiantes() {
+int** ingresoEstudiantesUNA() {
     while (students < 10 || students > 30) {
         cout << "Cuantos estudiantes desea ingresar (minimo 10 y maximo 30): ";
         cin >> students;
@@ -92,7 +92,7 @@ void mAverages(int* promedios, int** matriz) {
 int main() {
     srand(time(0));
 
-    int** matriz = ingresoEstudiantes();
+    int** matriz = ingresoEstudiantesUNA();
 
   
     studentsInformation(matriz);
